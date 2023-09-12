@@ -11,7 +11,7 @@ const EditCommentModal = ({ isVisible, handleClose, comment, questionId }) => {
       setIsSaving(true);
 
       // Perform the API call to update the comment content
-      await axiosBackend.put(`api/faqs/${questionId}/comments/${comment.id}/`, {
+      await axiosBackend.put(`api/discussions/${questionId}/comments/${comment.id}/`, {
         content: values.content,
       });
 
@@ -39,6 +39,7 @@ const EditCommentModal = ({ isVisible, handleClose, comment, questionId }) => {
           type="primary"
           onClick={() => form.submit()}
           loading={isSaving}
+          className="bg-blue-500"
         >
           Save
         </Button>,

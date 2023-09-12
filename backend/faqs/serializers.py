@@ -11,12 +11,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ["id", "content",]
-
-
-# class QuestionWithCommentsSerializer(serializers.ModelSerializer):
-#     comments = CommentSerializer(many=True, read_only=True)
-
-#     class Meta:
-#         model = Question
-#         fields = ["id", "question", "comments"]
+        fields = [
+            "id",
+            "content",
+        ]

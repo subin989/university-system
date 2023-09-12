@@ -44,16 +44,6 @@ const HomePage: NextPage = ({}) => {
       <UniversityRecommendation />
       <EventsSection />
       <AppFooter />
-
-      {/* <button onClick={handleSwitcherChange}>Toggle Switcher</button>
-
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            {task.title} - {task.done ? "Done" : "Not Done"}
-          </li>
-        ))}
-      </ul> */}
     </>
   );
 };

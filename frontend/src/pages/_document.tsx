@@ -7,7 +7,7 @@ const Document = () => {
         <Html lang="en">
             <Head>
                 <link rel="icon" type="image/x-icon" href="/favicon.png" />
-                <title>Next.js JWT Auth</title>
+                <title>Commence Your Study</title>
             </Head>
             <body>
                 <Main/>

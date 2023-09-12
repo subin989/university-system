@@ -5,17 +5,6 @@ from .serializers import QuestionSerializer, CommentSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
-# class IsOwnerOrReadOnly(permissions.BasePermission):
-#     """
-#     Custom permission to only allow owners of an object to edit or delete it.
-#     """
-
-#     def has_object_permission(self, request, view, obj):
-#         if request.method in permissions.SAFE_METHODS:
-#             return True
-#         return obj.question.user == request.user
-
-
 class QuestionViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]  # Require authentication for all actions
 
@@ -106,9 +95,7 @@ class QuestionViewSet(viewsets.ViewSet):
 
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(
-                user=request.user, question=question
-            )  # Save the user who created the comment
+            serializer.save(question=question)  # Save the user who created the comment
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -142,3 +129,90 @@ class QuestionViewSet(viewsets.ViewSet):
 
         comment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# from rest_framework import viewsets, status
+# from rest_framework.response import Response
+# from .models import Question, Comment
+# from .serializers import QuestionSerializer, CommentSerializer
+# from rest_framework.permissions import IsAuthenticated
+
+
+# class QuestionCommentViewSet(viewsets.ModelViewSet):
+#     permission_classes = [IsAuthenticated]
+
+#     def create(self, serializer):
+#         serializer.save(user=self.request.user)
+
+#     def update(self, request, pk=None):
+#         try:
+#             question = Question.objects.get(pk=pk)
+#         except Question.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+
+#         # Check if the user is the owner of the question or has the custom permission
+#         if question.user != request.user and not request.user.has_perm(
+#             "your_app_name.can_edit_question"
+#         ):
+#             return Response(status=status.HTTP_403_FORBIDDEN)
+
+#         serializer = QuestionSerializer(question, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     def destroy(self, request, pk=None):
+#         try:
+#             question = Question.objects.get(pk=pk)
+#         except Question.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+
+#         # Check if the user is the owner of the question or has the custom permission
+#         if question.user != request.user and not request.user.has_perm(
+#             "your_app_name.can_delete_question"
+#         ):
+#             return Response(status=status.HTTP_403_FORBIDDEN)
+
+#         question.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+
+#     def create_comment(self, serializer):
+#         question_id = self.kwargs.get("question_pk")
+#         question = Question.objects.get(pk=question_id)
+#         serializer.save(user=self.request.user, question=question)
+
+#     def update_comment(self, request, question_pk=None, comment_pk=None):
+#         try:
+#             question = Question.objects.get(pk=question_pk)
+#             comment = Comment.objects.get(pk=comment_pk, question=question)
+#         except (Question.DoesNotExist, Comment.DoesNotExist):
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+
+#         # Check if the user is the owner of the comment or has the custom permission
+#         if comment.user != request.user and not request.user.has_perm(
+#             "your_app_name.can_edit_comment"
+#         ):
+#             return Response(status=status.HTTP_403_FORBIDDEN)
+
+#         serializer = CommentSerializer(comment, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     def destroy_comment(self, request, question_pk=None, comment_pk=None):
+#         try:
+#             question = Question.objects.get(pk=question_pk)
+#             comment = Comment.objects.get(pk=comment_pk, question=question)
+#         except (Question.DoesNotExist, Comment.DoesNotExist):
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+
+#         # Check if the user is the owner of the comment or has the custom permission
+#         if comment.user != request.user and not request.user.has_perm(
+#             "your_app_name.can_delete_comment"
+#         ):
+#             return Response(status=status.HTTP_403_FORBIDDEN)
+
+#         comment.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)

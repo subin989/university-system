@@ -3,7 +3,7 @@ import { axiosBackend } from "utils/axios";
 
 export const fetchCommentsForQuestion = async (questionId) => {
   try {
-    const response = await axiosBackend.get(`api/faqs/${questionId}/comments/`);
+    const response = await axiosBackend.get(`api/discussions/${questionId}/comments/`);
     console.log("esonse os ", response.data);
 
     return response.data;

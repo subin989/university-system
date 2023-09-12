@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     "django_extensions",
     "faqs",
     "events",
-    "recommendations"
+    "recommendations",
+    'discussion'
 ]
 
 MIDDLEWARE = [

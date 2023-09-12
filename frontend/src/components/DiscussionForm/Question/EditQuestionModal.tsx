@@ -9,12 +9,15 @@ const EditQuestionModal = ({
   editedQuestion,
   setEditedQuestion,
 }) => {
+
+
   return (
     <Modal
       title="Edit Question"
       visible={isEditModalVisible}
       onCancel={handleEditModalCancel}
       onOk={handleEditModalSave}
+      okButtonProps={{ className: "bg-blue-500" }}
     >
       <Input
         value={editedQuestion}

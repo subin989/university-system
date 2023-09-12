@@ -19,7 +19,7 @@ const CommentModal = ({
 
     try {
       setIsSaving(true);
-      await axiosBackend.post(`api/faqs/${questionId}/comments/`, {
+      await axiosBackend.post(`api/discussions/${questionId}/comments/`, {
         content: commentText,
       });
       setCommentText(""); // Clear the input field

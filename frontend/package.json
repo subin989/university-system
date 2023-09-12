@@ -27,6 +27,7 @@
     "axios-auth-refresh": "^3.3.4",
     "cookies": "^0.8.0",
     "final-form": "^4.20.7",
+    "moment": "^2.29.4",
     "mui-rff": "^6.1.2",
     "next": "13.0.5",
     "next-redux-wrapper": "^8.0.0",

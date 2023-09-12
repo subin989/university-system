@@ -27,7 +27,7 @@ const DiscussionForm = () => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await axiosBackend.get("api/faqs/");
+      const response = await axiosBackend.get("api/discussions/");
       setQuestions(response.data);
     } catch (error) {
       console.error("Error fetching questions:", error);
@@ -40,7 +40,7 @@ const DiscussionForm = () => {
     }
 
     try {
-      await axiosBackend.post("api/faqs/", { question: newQuestion });
+      await axiosBackend.post("api/discussions/", { question: newQuestion });
       setNewQuestion("");
       setIsFormVisible(false);
       fetchQuestions();
@@ -66,7 +66,7 @@ const DiscussionForm = () => {
 
   const handleEditModalSave = async () => {
     try {
-      await axiosBackend.put(`api/faqs/${editingQuestionId}/`, {
+      await axiosBackend.put(`api/discussions/${editingQuestionId}/`, {
         question: editedQuestion,
       });
       message.success("Question updated successfully!");
@@ -82,7 +82,7 @@ const DiscussionForm = () => {
 
   const handleDeleteQuestion = async (questionId) => {
     try {
-      await axiosBackend.delete(`api/faqs/${questionId}/`);
+      await axiosBackend.delete(`api/discussions/${questionId}/`);
       message.success("Question deleted successfully!");
       fetchQuestions();
     } catch (error) {

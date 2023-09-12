@@ -55,7 +55,7 @@ const QuestionList = ({
       setIsDeleting(true);
 
       await axiosBackend.delete(
-        `api/faqs/${deletingComment.questionId}/comments/${deletingComment.id}/`
+        `api/discussions/${deletingComment.questionId}/comments/${deletingComment.id}/`
       );
       fetchQuestions(); // Update the list of questions
 
@@ -159,6 +159,7 @@ const QuestionList = ({
           onCancel={handleDeleteCommentModalClose}
           onOk={handleDeleteComment} // Call the function to delete the comment
           confirmLoading={isDeleting}
+          okButtonProps={{ className: "bg-blue-500" }}
         >
           <p>Are you sure you want to delete this comment?</p>
         </Modal>
