@@ -17,7 +17,14 @@ urlpatterns = [
     ),
     path(
         "api/discussions/<int:discussion_pk>/comments/<int:comment_pk>/",
-        DiscussionViewSet.as_view({"put": "update_comment", "delete": "delete_comment"}),
+        DiscussionViewSet.as_view(
+            {"put": "update_comment", "delete": "delete_comment"}
+        ),
         name="question-comment-detail",
+    ),
+    path(
+        "api/discussions/search/<str:searchTerm>/",
+        DiscussionViewSet.as_view({"get": "list"}),
+        name="search-discussions",
     ),
 ]

@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from .models import Discussion, DiscussionComment
 from .serializers import DiscussionSerializer, DiscussionCommentSerializer
 from rest_framework.permissions import IsAuthenticated
+from haystack.query import SearchQuerySet
 
 
 class DiscussionViewSet(viewsets.ModelViewSet):
@@ -10,12 +11,16 @@ class DiscussionViewSet(viewsets.ModelViewSet):
     serializer_class = DiscussionSerializer
     permission_classes = [IsAuthenticated]
 
-    def list(self, request):
-        discussions = Discussion.objects.all()
+    def list(self, request, *args, **kwargs):
+        query = kwargs.get("searchTerm", "")
+        print("QUERY",query)
+        
+        discussions = SearchQuerySet().filter(content=query).models(Discussion)
+
         discussion_data = []
 
         for discussion in discussions:
-            comments = DiscussionComment.objects.filter(discussion=discussion)
+            comments = DiscussionComment.objects.filter(discussion=discussion.object)
             comment_serializer = DiscussionCommentSerializer(comments, many=True)
 
             discussion_entry = {
@@ -25,7 +30,7 @@ class DiscussionViewSet(viewsets.ModelViewSet):
             }
             discussion_data.append(discussion_entry)
 
-        return Response(discussion_data)
+        return Response(discussion_data)    
 
     def retrieve(self, request, pk=None):
         try:

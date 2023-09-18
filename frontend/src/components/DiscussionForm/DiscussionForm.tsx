@@ -8,6 +8,7 @@ import QuestionList from "./Question/QuestionList";
 import EditQuestionModal from "./Question/EditQuestionModal";
 import CommentModal from "./Comment/CommentModal";
 import { fetchCommentsForQuestion } from "./Comment/commentApi";
+import SearchComponent from "./SearchComponent";
 
 const DiscussionForm = () => {
   // State and functions for the main component
@@ -100,8 +101,21 @@ const DiscussionForm = () => {
     setCurrentQuestionId(null);
     setIsCommentModalVisible(false);
   };
+
+  //search
+  const handleSearch = async (searchTerm) => {
+    try {
+      const response = await axiosBackend.get(
+        `api/discussions/search/${searchTerm}`
+      );
+      setQuestions(response.data);
+    } catch (error) {
+      console.error("Error searching questions:", error);
+    }
+  };
   return (
     <div>
+      <SearchComponent handleSearch={handleSearch} />
       {/* Button to add a new question */}
 
       {/* Render the QuestionForm component when the form is visible */}
