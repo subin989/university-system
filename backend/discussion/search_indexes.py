@@ -1,4 +1,3 @@
-# user/search_indexes.py
 
 from haystack import indexes
 from .models import Discussion, DiscussionComment

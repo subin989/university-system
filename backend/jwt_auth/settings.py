@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "events",
     "recommendations",
     "discussion",
+    "drf_haystack",
     "haystack",
 ]
 
@@ -49,12 +50,13 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine',
-        'URL': 'http://elastic:Test@123@192.168.0.102:9200/',
-        'INDEX_NAME': 'haystack',
+    "default": {
+        "ENGINE": "haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine",
+        "URL": "http://elastic:Test@123@192.168.0.102:9200/",
+        "INDEX_NAME": "haystack",
     },
 }
+HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
 
 ROOT_URLCONF = "jwt_auth.urls"
 

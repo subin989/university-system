@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from .models import Discussion, DiscussionComment
 from .serializers import DiscussionSerializer, DiscussionCommentSerializer
 from rest_framework.permissions import IsAuthenticated
-from haystack.query import SearchQuerySet
+from drf_haystack.viewsets import HaystackViewSet
 
 
 class DiscussionViewSet(viewsets.ModelViewSet):
@@ -11,16 +11,12 @@ class DiscussionViewSet(viewsets.ModelViewSet):
     serializer_class = DiscussionSerializer
     permission_classes = [IsAuthenticated]
 
-    def list(self, request, *args, **kwargs):
-        query = kwargs.get("searchTerm", "")
-        print("QUERY",query)
-        
-        discussions = SearchQuerySet().filter(content=query).models(Discussion)
-
+    def list(self, request):
+        discussions = Discussion.objects.all()
         discussion_data = []
 
         for discussion in discussions:
-            comments = DiscussionComment.objects.filter(discussion=discussion.object)
+            comments = DiscussionComment.objects.filter(discussion=discussion)
             comment_serializer = DiscussionCommentSerializer(comments, many=True)
 
             discussion_entry = {
@@ -30,7 +26,7 @@ class DiscussionViewSet(viewsets.ModelViewSet):
             }
             discussion_data.append(discussion_entry)
 
-        return Response(discussion_data)    
+        return Response(discussion_data)
 
     def retrieve(self, request, pk=None):
         try:
@@ -142,3 +138,29 @@ class DiscussionViewSet(viewsets.ModelViewSet):
 
         comment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# class DiscussionSearchViewSet(HaystackViewSet):
+#     index_models = [Discussion]
+#     serializer_class = DiscussionSerializer
+
+
+class DiscussionSearchViewSet(viewsets.ViewSet):
+    def list(self, request):
+        query = request.query_params.get("a")
+        print("Query",query)
+
+        if query is not None:
+            search_results = Discussion.objects.filter(question__icontains=query)
+            serializer = DiscussionSerializer(search_results, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(
+                {"message": "No search query provided"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
+class DiscussionCommentSearchViewSet(HaystackViewSet):
+    index_models = [DiscussionComment]
+    serializer_class = DiscussionCommentSerializer

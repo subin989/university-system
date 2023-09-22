@@ -7,7 +7,7 @@ import StudyDestination from "../components/Card/Card";
 import StudyAbroadDiscussion from "components/DiscussionForm/Main";
 import UniversityRecommendation from "components/Recommendation/UniversityRecommendation";
 import EventsSection from "components/Events/Events";
-import AppFooter from "components/Footer/Footer";
+import Footer from "components/Footer/Footer";
 import useEffectUpdate from "hooks/useEffectUpdate";
 
 type Task = {
@@ -43,7 +43,7 @@ const HomePage: NextPage = ({}) => {
       <StudyAbroadDiscussion />
       <UniversityRecommendation />
       <EventsSection />
-      <AppFooter />
+      <Footer />
     </>
   );
 };
