@@ -68,9 +68,6 @@ const QuestionList = ({
       message.error("Error deleting comment. Please try again.");
     }
   };
-  // useEffect(() => {
-  //   fetchQuestions();
-  // }, []);
 
   return (
     <div>
