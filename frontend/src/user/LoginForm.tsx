@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Form } from "react-final-form";
 import { TextField } from "mui-rff";
 import { Button, Stack } from "@mui/material";
 import useAuth from "./useAuth";
 import Typography from "@mui/material/Typography";
-import { useSnackbar } from "notistack";
+import { notification, Spin, message } from "antd";
 import useEffectUpdate from "../hooks/useEffectUpdate";
 
 const initialValues = {
@@ -12,15 +12,13 @@ const initialValues = {
   password: "",
 };
 
-// ----------------------------------------------------------------------
-
 interface FormData {
   email: string;
   password: string;
 }
 
 const LoginForm: FC = () => {
-  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
 
   const {
     login,
@@ -29,7 +27,18 @@ const LoginForm: FC = () => {
     },
   } = useAuth();
 
-  const onSubmit = async (values: FormData) => login(values);
+  const onSubmit = async (values: FormData) => {
+    setLoading(true);
+
+    try {
+      await login(values);
+      notification.success({ message: "User logged in successfully" });
+    } catch (error) {
+      notification.error({ message: "Something went wrong" });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const validate = async (values: FormData) => {
     if (!values.email) {
@@ -45,9 +54,9 @@ const LoginForm: FC = () => {
 
   useEffectUpdate(() => {
     if (status === "failed" && error) {
-      enqueueSnackbar(error, { variant: "error" });
+      message.error(error);
     }
-  }, [error]);
+  }, [status, error]);
 
   return (
     <Form
@@ -61,7 +70,7 @@ const LoginForm: FC = () => {
             spacing={3}
             className="w-96 p-7 border rounded-lg shadow-md bg-white"
           >
-            <Typography variant="h5 ">Log in</Typography>
+            <Typography variant="h5">Log in</Typography>
 
             <TextField
               label="Email"
@@ -84,8 +93,9 @@ const LoginForm: FC = () => {
               variant="contained"
               size="large"
               className="bg-blue-500 text-white text-sm md:text-base hover:bg-blue-700"
+              disabled={loading}
             >
-              Log in
+              {loading ? <Spin /> : "Log in"}
             </Button>
           </Stack>
         </form>

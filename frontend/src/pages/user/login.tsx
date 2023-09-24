@@ -6,7 +6,7 @@ import { PATH_USER } from "../../routes/paths";
 const LoginPage: NextPage = ({}) => {
   return (
     <div className="flex flex-col items-center h-screen bg-gray-200">
-      <h1 className="w-full p-8 text-2xl font-bold text-blue-500 text-center">
+      <h1 className="w-full p-8 text-4xl font-bold text-blue-500 text-center">
         Commence Your Study
       </h1>
 

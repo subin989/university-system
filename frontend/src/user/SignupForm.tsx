@@ -113,4 +113,3 @@ const Signup: FC = () => {
 };
 
 export default Signup;
-

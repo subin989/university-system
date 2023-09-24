@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import Navbar from "../components/Navbar/Navbar";
+import Footer from "components/Footer/Footer";
 
 // ----------------------------------------------------------------------
 
@@ -16,6 +17,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
       {/* Now this should work if StudyDestination is properly defined */}
       {children}
+      <Footer/>
     </>
   );
 };

@@ -1,35 +1,30 @@
+// components/Footer.js
+
 import React from "react";
-import { Layout } from "antd";
 import {
-  FacebookOutlined,
+  GithubOutlined,
   TwitterOutlined,
-  InstagramOutlined,
+  FacebookOutlined,
 } from "@ant-design/icons";
 
-const { Footer } = Layout;
-
-const AppFooter = () => {
+const Footer = () => {
   return (
-    <Footer className="bg-gray-800 py-6">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <span className="text-white">Follow Us:</span>
-          <a href="#" className="text-white">
-            <FacebookOutlined />
-          </a>
-          <a href="#" className="text-white">
-            <TwitterOutlined />
-          </a>
-          <a href="#" className="text-white">
-            <InstagramOutlined />
-          </a>
-        </div>
-        <div className="text-white">
-          © 2023 Study Abroad Portal. All rights reserved.
+    <footer className="bg-black p-6 text-white text-center">
+      <div className="container mx-auto">
+        <div className="mx-auto max-w-2xl">
+          <div className="mb-4 text-lg font-bold">University Search</div>
+          <div className="flex justify-center space-x-4">
+            <GithubOutlined style={{ fontSize: "24px", color: "white" }} />
+            <TwitterOutlined style={{ fontSize: "24px", color: "white" }} />
+            <FacebookOutlined style={{ fontSize: "24px", color: "white" }} />
+          </div>
+          <div className="mt-4 text-sm">
+            &copy; 2023 University Search. All rights reserved.
+          </div>
         </div>
       </div>
-    </Footer>
+    </footer>
   );
 };
 
-export default AppFooter;
+export default Footer;
