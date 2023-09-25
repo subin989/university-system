@@ -1,13 +1,26 @@
 import React, { useState } from "react";
-import { Card, Form, Input, Slider, Button, message, Modal } from "antd";
+import {
+  Card,
+  Form,
+  Input,
+  Slider,
+  Button,
+  message,
+  Modal,
+  Select,
+} from "antd";
 import { StarOutlined, DollarOutlined } from "@ant-design/icons";
-import axios from "axios"; // Import axios library for API calls
+import axios from "axios";
 import { axiosBackend } from "utils/axios";
 
 const UniversityRecommendation = () => {
   const [form] = Form.useForm();
   const [recommendations, setRecommendations] = useState([]);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const countries = [
+    { value: "AU", label: "Australia" },
+    { value: "USA", label: "United States of America" },
+  ];
 
   const handleRecommend = async (values) => {
     try {
@@ -16,6 +29,8 @@ const UniversityRecommendation = () => {
           fee: parseFloat(values.fee),
           acceptanceRate: values.acceptanceRate,
           scholarship: values.scholarship,
+          country: values.country,
+          state: values.state,
         },
       });
 
@@ -40,6 +55,8 @@ const UniversityRecommendation = () => {
         acceptance_rate: parseFloat(values.acceptanceRate),
         scholarship: parseFloat(values.scholarship),
         rating: parseFloat(values.rating),
+        country: values.country,
+        state: values.state,
       });
 
       message.success("University added successfully!");
@@ -93,6 +110,20 @@ const UniversityRecommendation = () => {
             tipFormatter={(value) => `${value}%`}
           />
         </Form.Item>
+        <Form.Item
+          label="Country"
+          name="country"
+          rules={[{ required: true, message: "Please select country" }]}
+        >
+          <Select placeholder="Select country" options={countries} />
+        </Form.Item>
+        <Form.Item
+          label="State"
+          name="state"
+          rules={[{ required: true, message: "Please enter state" }]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item>
           <Button
             className="border border-blue-500 text-blue-500 hover:border-blue-500 hover:text-blue-500"
@@ -122,6 +153,8 @@ const UniversityRecommendation = () => {
               </p>
               <p>Acceptance Rate: {university.acceptance_rate}%</p>
               <p>Scholarship: {university.scholarship}%</p>
+              <p>Country: {university.country}</p>
+              <p>State: {university.state}</p>
             </div>
           </Card>
         ))}
@@ -190,6 +223,20 @@ const UniversityRecommendation = () => {
             ]}
           >
             <Input type="number" prefix={<StarOutlined />} />
+          </Form.Item>
+          <Form.Item
+            label="Country"
+            name="country"
+            rules={[{ required: true, message: "Please select country" }]}
+          >
+            <Select placeholder="Select country" options={countries} />
+          </Form.Item>
+          <Form.Item
+            label="State"
+            name="state"
+            rules={[{ required: true, message: "Please enter state" }]}
+          >
+            <Input />
           </Form.Item>
         </Form>
       </Modal>
