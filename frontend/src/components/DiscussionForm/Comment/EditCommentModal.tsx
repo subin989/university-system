@@ -1,9 +1,14 @@
-
 import React, { useState } from "react";
 import { Modal, Form, Input, Button, message } from "antd";
 import { axiosBackend } from "utils/axios";
 
-const EditCommentModal = ({ isVisible, handleClose, comment, questionId }) => {
+const EditCommentModal = ({
+  isVisible,
+  handleClose,
+  comment,
+  questionId,
+  fetchQuestions,
+}) => {
   const [form] = Form.useForm();
   const [isSaving, setIsSaving] = useState(false);
 
@@ -12,12 +17,16 @@ const EditCommentModal = ({ isVisible, handleClose, comment, questionId }) => {
       setIsSaving(true);
 
       // Perform the API call to update the comment content
-      await axiosBackend.put(`api/discussions/${questionId}/comments/${comment.id}/`, {
-        content: values.content,
-      });
+      await axiosBackend.put(
+        `api/discussions/${questionId}/comments/${comment.id}/`,
+        {
+          content: values.content,
+        }
+      );
 
       message.success("Comment edited successfully!");
       setIsSaving(false);
+      fetchQuestions();
       handleClose();
     } catch (error) {
       console.error("Error saving comment:", error);

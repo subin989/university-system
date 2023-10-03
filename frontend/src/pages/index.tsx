@@ -7,8 +7,8 @@ import StudyDestination from "../components/Card/Card";
 import StudyAbroadDiscussion from "components/DiscussionForm/Main";
 import UniversityRecommendation from "components/Recommendation/UniversityRecommendation";
 import EventsSection from "components/Events/Events";
-import AppFooter from "components/Footer/Footer";
 import useEffectUpdate from "hooks/useEffectUpdate";
+import ScrollButton from "components/Scroll/ScrollButton";
 
 type Task = {
   id: number;
@@ -43,6 +43,7 @@ const HomePage: NextPage = ({}) => {
       <StudyAbroadDiscussion />
       <UniversityRecommendation />
       <EventsSection />
+      <ScrollButton />
     </>
   );
 };

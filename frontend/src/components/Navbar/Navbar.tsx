@@ -5,39 +5,12 @@ import IconButton from "@mui/material/IconButton";
 import { PATH_USER } from "../../routes/paths";
 import { RocketOutlined } from "@ant-design/icons";
 
-// import { HomeIcon } from "@heroicons/react/solid"; // Assuming you have a suitable icon component
-
 const Navbar = () => {
-  const [scrolling, setScrolling] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScrolling(true);
-      } else {
-        setScrolling(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
-    <nav
-      className={`p-4 ${
-        scrolling
-          ? "fixed top-0 left-0 right-0 bg-white shadow-md transition duration-500"
-          : "static bg-blue-50" // Change this line to set the blue background color
-      }`}
-    >
-      <div className="container mx-auto flex justify-between items-center ">
+    <nav className="p-4 static bg-blue-50">
+      <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <div className="text-2xl font-bold text-blue-600">
-            {/* Use your icon component here */}
-            {/* <RocketOutlined /> */}
             <strong>CYS</strong>
           </div>
         </div>

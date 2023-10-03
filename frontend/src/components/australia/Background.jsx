@@ -1,5 +1,6 @@
 import React from "react";
 import { Table } from "antd";
+
 const columns = [
   {
     title: "University",
@@ -12,12 +13,9 @@ const columns = [
         rel="noopener noreferrer"
         className="flex items-center"
       >
-        <img
-          src={record.logo}
-          alt={text}
-          className="h-16 w-16 mr-2 object-contain"
-        />
-        {text}
+        <img src={record.logo} alt={text} className="w-1/2 h-auto mr-4" />
+
+        <span>{text}</span>
       </a>
     ),
   },

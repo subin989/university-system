@@ -132,7 +132,7 @@ class DiscussionViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         # Check if the user is the owner of the comment or is a superadmin
-        if not (request.user.is_superuser or comment.user == request.user):
+        if not (request.user.is_superuser):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
         comment.delete()

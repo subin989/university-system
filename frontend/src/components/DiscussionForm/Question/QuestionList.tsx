@@ -25,7 +25,7 @@ const QuestionList = ({
     const question = questions.find((q) => q.id === questionId);
     const commentToEdit = question.comments.find((c) => c.id === commentId);
 
-    setEditingComment({ ...commentToEdit, questionId }); // Include questionId
+    setEditingComment({ ...commentToEdit, questionId,commentId }); // Include questionId
     setEditModalVisible(true);
   };
 
@@ -108,7 +108,7 @@ const QuestionList = ({
                 {question.comments.map((comment) => (
                   <div
                     key={comment.id}
-                    className="border p-3 rounded-lg mb-2 shadow-sm bg-gray-100"
+                    className="border p-3 rounded-lg mb-2  bg-gray-100"
                   >
                     <div className="flex justify-between items-center">
                       <p className="text-sm">{comment.content}</p>
@@ -147,6 +147,7 @@ const QuestionList = ({
         handleClose={handleEditCommentModalClose}
         comment={editingComment}
         questionId={editingComment ? editingComment.questionId : null}
+        fetchQuestions={fetchQuestions}
       />
       {/* Delete Comment Modal */}
       {deletingComment && (
