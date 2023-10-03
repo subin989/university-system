@@ -12,10 +12,10 @@ const BackgroundImage = () => {
             your potential.
           </p>
           <Link
-            href="/courses"
+            href="#applying-country"
             className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600"
           >
-            Explore Courses
+            Explore Destination
           </Link>
         </div>
       </div>

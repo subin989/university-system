@@ -167,7 +167,11 @@ const UniversityRecommendation = () => {
           <Button key="cancel" onClick={() => setIsAddModalVisible(false)}>
             Cancel
           </Button>,
-          <Button key="submit" type="primary" onClick={() => form.submit()}>
+          <Button
+            className="mb-4 border border-blue-500 text-blue-500 hover:border-blue-500 hover:text-blue-500"
+            key="submit"
+            onClick={() => form.submit()}
+          >
             Add University
           </Button>,
         ]}

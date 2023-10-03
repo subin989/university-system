@@ -10,13 +10,7 @@ import {
   Collapse,
   message,
 } from "antd";
-import {
-  CalendarOutlined,
-  ClockCircleOutlined,
-  PlusOutlined,
-  EditOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios"; // Import axios library for API calls
 import { axiosBackend } from "utils/axios";
 import moment from "moment";
@@ -199,8 +193,16 @@ const EventsSection = () => {
               label="Date"
               rules={[{ required: true, message: "Please select event date" }]}
             >
-              <DatePicker format="YYYY-MM-DD" />
+              <DatePicker
+                format="YYYY-MM-DD"
+                value={
+                  selectedEvent
+                    ? moment(selectedEvent.date, "YYYY-MM-DD")
+                    : null
+                }
+              />
             </Form.Item>
+
             <Form.Item
               name="time"
               label="Start Time"
@@ -208,6 +210,7 @@ const EventsSection = () => {
             >
               <TimePicker format="HH:mm A" />
             </Form.Item>
+
             <Form.Item
               name="endTime"
               label="End Time"

@@ -43,7 +43,6 @@ const HomePage: NextPage = ({}) => {
       <StudyAbroadDiscussion />
       <UniversityRecommendation />
       <EventsSection />
-      <AppFooter />
     </>
   );
 };
